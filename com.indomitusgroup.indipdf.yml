@@ -3,9 +3,6 @@ runtime: org.gnome.Platform
 runtime-version: '49'
 sdk: org.gnome.Sdk
 
-only-arches:
-  - x86_64
-
 command: indipdf
 
 finish-args:
