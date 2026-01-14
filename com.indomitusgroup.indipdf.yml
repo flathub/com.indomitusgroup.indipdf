@@ -3,6 +3,9 @@ runtime: org.gnome.Platform
 runtime-version: '49'
 sdk: org.gnome.Sdk
 
+only-arches:
+  - x86_64
+
 command: indipdf
 
 finish-args:
@@ -62,8 +65,6 @@ modules:
 
   - name: indipdf
     buildsystem: simple
-    only-arches:
-      - x86_64
     build-commands:
       - install -Dm755 indipdf ${FLATPAK_DEST}/bin/indipdf
       - install -Dm644 com.indomitusgroup.indipdf.desktop ${FLATPAK_DEST}/share/applications/com.indomitusgroup.indipdf.desktop
