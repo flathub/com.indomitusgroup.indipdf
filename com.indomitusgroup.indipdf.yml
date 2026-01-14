@@ -6,33 +6,19 @@ sdk: org.gnome.Sdk
 command: indipdf
 
 finish-args:
-  # Wayland and X11 display access
   - --socket=wayland
   - --socket=fallback-x11
   - --share=ipc
-
-  # GPU acceleration for WebKit rendering
   - --device=dri
-
-  # Printing support via CUPS socket
   - --socket=cups
-
-  # Network access (for license validation if needed in future)
-  - --share=network
-
-  # Access to download folder for default save location
   - --filesystem=xdg-download
-
-  # Read-only access to documents folder
   - --filesystem=xdg-documents:ro
 
 modules:
   # CUPS client tools (lp, lpstat) for printing support
-  # We only need the client commands, not the server
   - name: cups
     buildsystem: autotools
     config-opts:
-      # Disable all server/daemon features
       - --disable-systemd
       - --disable-avahi
       - --disable-launchd
@@ -44,7 +30,6 @@ modules:
       - --without-systemd
       - --without-xinetd
       - --without-tls
-      # Explicit paths - keep everything inside /app
       - --localstatedir=/app/var
       - --sysconfdir=/app/etc
       - --with-menudir=/app/share/applications
@@ -52,28 +37,24 @@ modules:
       - --with-rundir=/app/var/run/cups
       - --with-logdir=/app/var/log/cups
       - --with-cachedir=/app/var/cache/cups
-    post-install:
-      # Remove EVERYTHING except the client commands we need (lp, lpstat, lpoptions)
-      # and the library they depend on (libcups)
-      - rm -rf ${FLATPAK_DEST}/sbin
-      - rm -rf ${FLATPAK_DEST}/etc
-      - rm -rf ${FLATPAK_DEST}/var
-      - rm -rf ${FLATPAK_DEST}/lib/cups
-      - rm -rf ${FLATPAK_DEST}/share/cups
-      - rm -rf ${FLATPAK_DEST}/share/doc
-      - rm -rf ${FLATPAK_DEST}/share/man
-      - rm -rf ${FLATPAK_DEST}/share/locale
-      - rm -rf ${FLATPAK_DEST}/share/applications
-      - rm -rf ${FLATPAK_DEST}/share/icons
-      # Remove server/admin tools we don't need
-      - rm -f ${FLATPAK_DEST}/bin/cups-config
-      - rm -f ${FLATPAK_DEST}/bin/ippeveprinter
-      - rm -f ${FLATPAK_DEST}/bin/ippfind
-      - rm -f ${FLATPAK_DEST}/bin/ipptool
-      # Remove development files
-      - rm -rf ${FLATPAK_DEST}/include
-      - rm -f ${FLATPAK_DEST}/lib/*.a
-      - rm -f ${FLATPAK_DEST}/lib/pkgconfig/cups.pc
+    cleanup:
+      - /sbin
+      - /etc
+      - /var
+      - /lib/cups
+      - /share/cups
+      - /share/doc
+      - /share/man
+      - /share/locale
+      - /share/applications
+      - /share/icons
+      - /bin/cups-config
+      - /bin/ippeveprinter
+      - /bin/ippfind
+      - /bin/ipptool
+      - /include
+      - /lib/*.a
+      - /lib/pkgconfig
     sources:
       - type: archive
         url: https://github.com/OpenPrinting/cups/releases/download/v2.4.11/cups-2.4.11-source.tar.gz
@@ -82,25 +63,15 @@ modules:
   - name: indipdf
     buildsystem: simple
     build-commands:
-      # Extract and install the binary
       - install -Dm755 indipdf ${FLATPAK_DEST}/bin/indipdf
-
-      # Install desktop file
       - install -Dm644 com.indomitusgroup.indipdf.desktop ${FLATPAK_DEST}/share/applications/com.indomitusgroup.indipdf.desktop
-
-      # Install AppStream metadata
       - install -Dm644 com.indomitusgroup.indipdf.metainfo.xml ${FLATPAK_DEST}/share/metainfo/com.indomitusgroup.indipdf.metainfo.xml
-
-      # Install icons
       - install -Dm644 icons/32x32.png ${FLATPAK_DEST}/share/icons/hicolor/32x32/apps/com.indomitusgroup.indipdf.png
       - install -Dm644 icons/64x64.png ${FLATPAK_DEST}/share/icons/hicolor/64x64/apps/com.indomitusgroup.indipdf.png
       - install -Dm644 icons/128x128.png ${FLATPAK_DEST}/share/icons/hicolor/128x128/apps/com.indomitusgroup.indipdf.png
       - install -Dm644 icons/256x256.png ${FLATPAK_DEST}/share/icons/hicolor/256x256/apps/com.indomitusgroup.indipdf.png
       - install -Dm644 icons/512x512.png ${FLATPAK_DEST}/share/icons/hicolor/512x512/apps/com.indomitusgroup.indipdf.png
-
     sources:
-      # Pre-built binary package
       - type: archive
         url: https://downloads.indomitusgroup.com/indipdf/indipdf-1.0.0-linux-x86_64.tar.gz
         sha256: 8bb1c2547827ea2c98a558cfaa8dfbd39019bafb4a5b0af436b71c322f64c7bc
-        # To generate: sha256sum indipdf-1.0.0-linux-x86_64.tar.gz
