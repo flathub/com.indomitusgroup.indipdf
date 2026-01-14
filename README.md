@@ -184,9 +184,9 @@ indiPDF/
 - [x] System clipboard integration
 - [x] Flatpak packaging
 - [x] In-app license purchase
+- [x] Text editing within existing PDF text
 
 ### Planned
-- [ ] Text editing within existing PDF text
 - [ ] OCR support via external tools
 - [ ] Cloud storage integration
 - [ ] PDF/A compliance
