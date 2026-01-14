@@ -62,6 +62,8 @@ modules:
 
   - name: indipdf
     buildsystem: simple
+    only-arches:
+      - x86_64
     build-commands:
       - install -Dm755 indipdf ${FLATPAK_DEST}/bin/indipdf
       - install -Dm644 com.indomitusgroup.indipdf.desktop ${FLATPAK_DEST}/share/applications/com.indomitusgroup.indipdf.desktop
