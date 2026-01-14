@@ -1,0 +1,8 @@
+{
+  "linter": {
+    "exceptions": [
+      "appstream-screenshots-not-mirrored-in-ostree",
+      "appstream-external-screenshot-url"
+    ]
+  }
+}
