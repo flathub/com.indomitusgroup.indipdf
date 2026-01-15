@@ -73,5 +73,5 @@ modules:
       - install -Dm644 icons/512x512.png ${FLATPAK_DEST}/share/icons/hicolor/512x512/apps/com.indomitusgroup.indipdf.png
     sources:
       - type: archive
-        url: https://downloads.indomitusgroup.com/indipdf/indipdf-1.0.0-linux-x86_64.tar.gz
-        sha256: 8bb1c2547827ea2c98a558cfaa8dfbd39019bafb4a5b0af436b71c322f64c7bc
+        url: https://downloads.indomitusgroup.com/indipdf/indipdf-1.0.1-linux-x86_64.tar.gz
+        sha256: fc2036cb64b2fd44308102c98af8ac211f0b2705ffa24a19d10bce8053e34e93
