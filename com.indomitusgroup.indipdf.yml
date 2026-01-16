@@ -11,8 +11,11 @@ finish-args:
   - --share=ipc
   - --device=dri
   - --socket=cups
+  # Read-only access to common locations where users may have PDFs
+  - --filesystem=xdg-desktop:ro
+  # Write access to specific locations for saving
   - --filesystem=xdg-download
-  - --filesystem=xdg-documents:ro
+  - --filesystem=xdg-documents
 
 modules:
   # CUPS client tools (lp, lpstat) for printing support
@@ -73,5 +76,5 @@ modules:
       - install -Dm644 icons/512x512.png ${FLATPAK_DEST}/share/icons/hicolor/512x512/apps/com.indomitusgroup.indipdf.png
     sources:
       - type: archive
-        url: https://downloads.indomitusgroup.com/indipdf/indipdf-1.0.2-linux-x86_64.tar.gz
-        sha256: 11fbe00a699f2ed5f2629d8f35200c260f18407a05e426877ff42fa02765cbd0
+        url: https://downloads.indomitusgroup.com/indipdf/indipdf-1.0.3-linux-x86_64.tar.gz
+        sha256: ced49e137d1426d2fa72abd11acb35efd156ba12bc7554cd124a1121f6296bf4
