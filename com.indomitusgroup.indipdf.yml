@@ -11,9 +11,7 @@ finish-args:
   - --share=ipc
   - --device=dri
   - --socket=cups
-  # Read-only access to common locations where users may have PDFs
-  - --filesystem=xdg-desktop:ro
-  # Write access to specific locations for saving
+  # Write access to common locations for saving PDFs
   - --filesystem=xdg-download
   - --filesystem=xdg-documents
 
@@ -77,4 +75,4 @@ modules:
     sources:
       - type: archive
         url: https://downloads.indomitusgroup.com/indipdf/indipdf-1.0.3-linux-x86_64.tar.gz
-        sha256: ced49e137d1426d2fa72abd11acb35efd156ba12bc7554cd124a1121f6296bf4
+        sha256: 117005d1f7ec748c6cdd44b6e35acf65ffe8c76a343057ea41334dc1621ae790
