@@ -11,11 +11,34 @@ finish-args:
   - --share=ipc
   - --device=dri
   - --socket=cups
+  # Scanner access (USB and other devices)
+  - --device=all
   # Write access to common locations for saving PDFs
   - --filesystem=xdg-download
   - --filesystem=xdg-documents
 
 modules:
+  # SANE (Scanner Access Now Easy) for scanner support
+  - name: sane-backends
+    buildsystem: autotools
+    config-opts:
+      - --prefix=/app
+      - --sysconfdir=/app/etc
+      - --localstatedir=/app/var
+      - --with-usb
+      - --disable-locking
+    cleanup:
+      - /share/doc
+      - /share/man
+      - /include
+      - /lib/*.a
+      - /lib/*.la
+      - /lib/pkgconfig
+    sources:
+      - type: archive
+        url: https://gitlab.com/sane-project/backends/-/archive/1.4.0/backends-1.4.0.tar.gz
+        sha256: 9c50ee76e35d98d7ae0cbb97d4c2a3c15663a78fdd74b0ed2bf2fe8e1a73f63a
+
   # CUPS client tools (lp, lpstat) for printing support
   - name: cups
     buildsystem: autotools
@@ -74,5 +97,5 @@ modules:
       - install -Dm644 icons/512x512.png ${FLATPAK_DEST}/share/icons/hicolor/512x512/apps/com.indomitusgroup.indipdf.png
     sources:
       - type: archive
-        url: https://downloads.indomitusgroup.com/indipdf/indipdf-1.0.3-linux-x86_64.tar.gz
-        sha256: 117005d1f7ec748c6cdd44b6e35acf65ffe8c76a343057ea41334dc1621ae790
+        url: https://downloads.indomitusgroup.com/indipdf/indipdf-1.1.0-linux-x86_64.tar.gz
+        sha256: 3467eb3213d9866d99943da7ec1f04a11c1571dba7a0b12ff9dcd3cec9f374d4
