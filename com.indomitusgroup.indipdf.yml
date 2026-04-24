@@ -10,6 +10,8 @@ finish-args:
   - --socket=fallback-x11
   - --share=ipc
   - --socket=cups
+  # Network access for downloading OCR language data on first use
+  - --share=network
   # Device access for GPU (dri) and scanners (USB)
   - --device=all
   # Write access to common locations for saving PDFs
@@ -83,6 +85,47 @@ modules:
         url: https://github.com/OpenPrinting/cups/releases/download/v2.4.11/cups-2.4.11-source.tar.gz
         sha256: 9a88fe1da3a29a917c3fc67ce6eb3178399d68e1a548c6d86c70d9b13651fd71
 
+  # Ghostscript for PDF compression and PDF/A export
+  - name: ghostscript
+    buildsystem: autotools
+    config-opts:
+      - --prefix=/app
+      - --disable-cups
+      - --disable-dbus
+      - --disable-gtk
+      - --with-drivers=FILES
+      - --with-system-libtiff
+      - --disable-compile-inits
+    cleanup:
+      - /share/doc
+      - /share/man
+      - /include
+      - /lib/*.a
+      - /lib/*.la
+      - /lib/pkgconfig
+    sources:
+      - type: archive
+        url: https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10040/ghostscript-10.04.0.tar.gz
+        sha256: c764dfbb7b13fc71a7a05c634e014f9bb1fb83b899fe39efc0b6c3522a9998b1
+
+  # qpdf for PDF encryption/decryption
+  - name: qpdf
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DREQUIRE_CRYPTO_OPENSSL=ON
+      - -DBUILD_STATIC_LIBS=OFF
+    cleanup:
+      - /share/doc
+      - /share/man
+      - /include
+      - /lib/*.a
+      - /lib/pkgconfig
+    sources:
+      - type: archive
+        url: https://github.com/qpdf/qpdf/releases/download/v11.9.1/qpdf-11.9.1.tar.gz
+        sha256: 2ba4d248f9567a27c146b9772ef5dc93bd9622317978455ffe91b259340d13d1
+
   - name: indipdf
     buildsystem: simple
     build-commands:
@@ -96,5 +139,5 @@ modules:
       - install -Dm644 icons/512x512.png ${FLATPAK_DEST}/share/icons/hicolor/512x512/apps/com.indomitusgroup.indipdf.png
     sources:
       - type: archive
-        url: https://downloads.indomitusgroup.com/indipdf/indipdf-1.1.0-linux-x86_64.tar.gz
-        sha256: 4599ca48c83d72ff1dc5608be5539add40f1f38fa97f28c5a4c2aa11187597bd
+        url: https://downloads.indomitusgroup.com/indipdf/indipdf-1.2.0-linux-x86_64.tar.gz
+        sha256: aee4a4663d2f7453eb6357f3e2c792f99be71513a3bde91b8a1c5f4041ad517d
