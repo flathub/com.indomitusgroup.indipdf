@@ -149,4 +149,4 @@ modules:
     sources:
       - type: archive
         url: https://downloads.indomitusgroup.com/indipdf/indipdf-1.2.0-linux-x86_64.tar.gz
-        sha256: 68b28f40134af2c35a3b8d6c1a05ce0444dfa38669fafbbc3efba10e1493f0d2
+        sha256: 11352defc8b69e4e59a7448d152a0e82e5d8cf8a08e1b6e6fe8352a6f90ae656
