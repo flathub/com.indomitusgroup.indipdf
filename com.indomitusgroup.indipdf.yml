@@ -4,6 +4,8 @@ runtime-version: '49'
 sdk: org.gnome.Sdk
 
 command: indipdf
+tags: 
+  - proprietary
 
 finish-args:
   - --socket=wayland
