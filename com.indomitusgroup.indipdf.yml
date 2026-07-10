@@ -189,5 +189,5 @@ modules:
         done
     sources:
       - type: archive
-        url: https://downloads.indomitusgroup.com/indipdf/indipdf-1.5.0-linux-x86_64.tar.gz
-        sha256: ab6a30e840ccb343cb54feac418176c017bf1ed46b36453b7ed6c0b3b2aa5cdc
+        url: https://downloads.indomitusgroup.com/indipdf/indipdf-1.6.0-linux-x86_64.tar.gz
+        sha256: 0c77c1f26998e3ef9f213c6311d9aedd645828cf447d166cd7d034e494260a3e
