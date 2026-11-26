@@ -17,9 +17,6 @@ finish-args:
   # Write access to common locations for saving PDFs
   - --filesystem=xdg-download
   - --filesystem=xdg-documents
-  # One indiPDF at a time: a PDF opened while it runs is handed to the open
-  # window, over this name on the session bus, rather than starting another.
-  - --own-name=org.indipdf.SingleInstance
 
 modules:
   # SANE (Scanner Access Now Easy) for scanner support
@@ -193,4 +190,4 @@ modules:
     sources:
       - type: archive
         url: https://downloads.indomitusgroup.com/indipdf/indipdf-2.5.0-linux-x86_64.tar.gz
-        sha256: 969cd617502fec222f8eaa508135ac3e0d3c1f3e04464888d79c59c1bd3da3a4
+        sha256: 3a6bb94541d11d99c00db882478fc839d8513afdad50871e22460284802eee2d
